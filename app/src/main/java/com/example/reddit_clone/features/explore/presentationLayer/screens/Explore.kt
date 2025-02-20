@@ -1,4 +1,4 @@
-package com.example.reddit_clone.features.explore.presentationLayer.screens.utils
+package com.example.reddit_clone.features.explore.presentationLayer.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

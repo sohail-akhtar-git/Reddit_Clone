@@ -1,7 +1,6 @@
 package com.example.reddit_clone.features.explore.presentationLayer.screens.utils
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -11,11 +10,11 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun Notification(){
+fun Uploads(){
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(),
 
         contentAlignment = Alignment.Center){
-        Text(text = "Notification")
+        Text(text = "Uploads")
     }
 }

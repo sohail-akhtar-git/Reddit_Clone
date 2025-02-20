@@ -1,4 +1,4 @@
-package com.example.reddit_clone.features.homepage.presentationLayer.screens.utils
+package com.example.reddit_clone.features.homepage.presentationLayer.utils
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box

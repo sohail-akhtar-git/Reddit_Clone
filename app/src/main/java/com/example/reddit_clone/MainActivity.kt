@@ -32,11 +32,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Chat
-import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Explore
+import com.example.reddit_clone.features.explore.presentationLayer.screens.Explore
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Notification
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Uploads
 import com.example.reddit_clone.features.homepage.presentationLayer.screens.HomeScreen
-import com.example.reddit_clone.features.homepage.presentationLayer.screens.utils.AppBar
+import com.example.reddit_clone.features.homepage.presentationLayer.utils.AppBar
 import com.example.reddit_clone.ui.theme.Reddit_CloneTheme
 
 class MainActivity : ComponentActivity() {
@@ -60,9 +60,6 @@ enum class Screens{
     Notification
 }
 
-
-
-
 @Composable
 fun MainScreen(){
     val navController = rememberNavController()
@@ -71,7 +68,7 @@ fun MainScreen(){
     }
 
     Scaffold(
-        topBar = { AppBar()},
+        topBar = { AppBar() },
         bottomBar = {
             NavigationBar {
                buttomNavBarItems.forEachIndexed { _, buttomNavBarItem ->
@@ -93,8 +90,6 @@ fun MainScreen(){
                                } ,
                                contentDescription =null )
                        },
-
-
                    )
                }
 
