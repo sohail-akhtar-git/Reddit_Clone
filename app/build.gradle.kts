@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -69,4 +71,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.coil.compose)
+
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 }

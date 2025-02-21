@@ -1,4 +1,4 @@
-package com.example.reddit_clone.features.homepage.dataLayer.dataModels
+package com.example.reddit_clone.features.homepage.domainLayer.dataModels
 
 data class Post(
     val title:String,

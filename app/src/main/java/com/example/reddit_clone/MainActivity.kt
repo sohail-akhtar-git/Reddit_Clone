@@ -35,6 +35,7 @@ import com.example.reddit_clone.features.explore.presentationLayer.screens.utils
 import com.example.reddit_clone.features.explore.presentationLayer.screens.Explore
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Notification
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Uploads
+import com.example.reddit_clone.features.homepage.domainLayer.viewModels.HomePageViewModel
 import com.example.reddit_clone.features.homepage.presentationLayer.screens.HomeScreen
 import com.example.reddit_clone.features.homepage.presentationLayer.utils.AppBar
 import com.example.reddit_clone.ui.theme.Reddit_CloneTheme
@@ -43,9 +44,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val homeScreenViewModel = HomePageViewModel()
         setContent {
             Reddit_CloneTheme {
-               MainScreen()
+               MainScreen(homeScreenViewModel)
             }
         }
     }
@@ -61,7 +63,7 @@ enum class Screens{
 }
 
 @Composable
-fun MainScreen(){
+fun MainScreen(homeScreenViewModel: HomePageViewModel) {
     val navController = rememberNavController()
     val selectedIndex = remember {
         mutableStateOf(Screens.Home.toString())
@@ -106,7 +108,7 @@ fun MainScreen(){
                 startDestination = Screens.Home.toString(),
             ) {
 
-                composable(Screens.Home.toString()) { HomeScreen() }
+                composable(Screens.Home.toString()) { HomeScreen(homeScreenViewModel) }
                 composable(Screens.Explore.toString()) { Explore() }
                 composable(Screens.Upload.toString()) { Uploads() }
                 composable(Screens.Chat.toString()) { Chat() }

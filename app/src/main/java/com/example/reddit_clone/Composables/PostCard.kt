@@ -41,7 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.reddit_clone.features.homepage.dataLayer.dataModels.Post
+import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
 
 @Composable
 fun PostCard(post: Post){
@@ -167,7 +167,7 @@ fun PostCard(post: Post){
                             modifier = Modifier
                                 .size(30.dp)
                                 .padding(5.dp),
-                            onClick = { /*TODO*/ }
+                            onClick = { post.likeCount++ }
                         ) {
                             Icon(imageVector = Icons.Default.ThumbUp, contentDescription = null)
                         }
@@ -185,7 +185,7 @@ fun PostCard(post: Post){
                             modifier = Modifier
                                 .size(30.dp)
                                 .padding(5.dp),
-                            onClick = { /*TODO*/ }
+                            onClick = { post.likeCount-- }
                         ) {
                             Icon(
                                 modifier = Modifier.rotate(180.0F),
