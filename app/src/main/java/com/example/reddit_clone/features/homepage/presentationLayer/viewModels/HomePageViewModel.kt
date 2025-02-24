@@ -1,4 +1,4 @@
-package com.example.reddit_clone.features.homepage.domainLayer.viewModels
+package com.example.reddit_clone.features.homepage.presentationLayer.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,23 @@ class HomePageViewModel : ViewModel() {
         viewModelScope.launch {
             apiRepo.getData()
         }
+
         _isLoding = false
+    }
+
+    fun likePost(index:Int){
+        viewModelScope.launch {
+            apiRepo.likePost(index)
+        }
+
+    }
+
+
+    fun disLikePost(index:Int){
+        viewModelScope.launch {
+            apiRepo.disLikePost(index)
+        }
+
     }
 
 }

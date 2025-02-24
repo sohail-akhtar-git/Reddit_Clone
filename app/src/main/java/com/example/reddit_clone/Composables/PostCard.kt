@@ -42,9 +42,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
+import com.example.reddit_clone.features.homepage.presentationLayer.viewModels.HomePageViewModel
 
 @Composable
-fun PostCard(post: Post){
+fun PostCard(post: Post,model: HomePageViewModel,index:Int){
     Card(
         shape = RoundedCornerShape(5),
         colors = CardColors(
@@ -167,7 +168,7 @@ fun PostCard(post: Post){
                             modifier = Modifier
                                 .size(30.dp)
                                 .padding(5.dp),
-                            onClick = { post.likeCount++ }
+                            onClick = { model.likePost(index)}
                         ) {
                             Icon(imageVector = Icons.Default.ThumbUp, contentDescription = null)
                         }
@@ -185,7 +186,7 @@ fun PostCard(post: Post){
                             modifier = Modifier
                                 .size(30.dp)
                                 .padding(5.dp),
-                            onClick = { post.likeCount-- }
+                            onClick = {model.disLikePost(index) }
                         ) {
                             Icon(
                                 modifier = Modifier.rotate(180.0F),

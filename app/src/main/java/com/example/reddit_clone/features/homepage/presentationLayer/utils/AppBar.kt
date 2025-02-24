@@ -20,15 +20,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.reddit_clone.Screens
 
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun AppBar(
-){
+fun AppBar(navController: NavHostController) {
     val query = remember{ mutableStateOf("")}
     val isActive = remember {
         mutableStateOf(false)
@@ -38,7 +39,7 @@ fun AppBar(
     TopAppBar(
         actions = {
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = { navController.navigate(Screens.Login.toString()) }
             )
             {
                 Icon(tint = Color(0xFF9875E2),imageVector = Icons.Default.Settings, contentDescription = null)

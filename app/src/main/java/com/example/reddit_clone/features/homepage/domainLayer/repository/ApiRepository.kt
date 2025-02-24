@@ -11,7 +11,7 @@ class ApiRepository {
 
     private  val _postData = MutableStateFlow<List<Post>>(emptyList())
 
-
+    private var data= emptyList<Post>()
 
     val postData: StateFlow<List<Post>>
         get() = _postData
@@ -21,10 +21,22 @@ class ApiRepository {
         val response = postApi.getInitialData()
         if (response.isSuccessful && response.body() != null) {
             _postData.emit(response.body()!!)
+            data = _postData.value
             Log.d("Sameer","data aa gya hai")
         } else {
             //
             Log.d("Sameer","Something wrong")
         }
+    }
+
+    suspend fun likePost(inde:Int) {
+        data[inde].likeCount += 1
+        _postData.emit(data)
+    }
+
+    suspend fun disLikePost(inde: Int){
+        _postData.value[inde].likeCount -=1
+        _postData.emit(_postData.value)
+
     }
 }

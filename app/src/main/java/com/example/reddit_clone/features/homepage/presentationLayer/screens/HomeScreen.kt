@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.reddit_clone.Composables.PostCard
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.postList
-import com.example.reddit_clone.features.homepage.domainLayer.viewModels.HomePageViewModel
+import com.example.reddit_clone.features.homepage.presentationLayer.viewModels.HomePageViewModel
 
 
 @Composable
@@ -39,7 +39,7 @@ fun HomeScreen(homeScreenViewModel: HomePageViewModel) {
             }
         ) {
             item {
-                data.value.forEach {
+                data.value.forEachIndexed { index, it ->
                     PostCard(
                         post = Post(
                             title = it.title,
@@ -49,7 +49,9 @@ fun HomeScreen(homeScreenViewModel: HomePageViewModel) {
                             likeCount = it.likeCount,
                             postItems = it.postItems,
                             comments = it.comments,
-                        )
+                        ),
+                        model=homeScreenViewModel,
+                        index = index
                     )
                 }
                 

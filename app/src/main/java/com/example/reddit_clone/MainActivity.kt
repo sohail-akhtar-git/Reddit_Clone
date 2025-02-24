@@ -31,11 +31,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.reddit_clone.features.auth.login.presentationLayer.LogInNavigation
+import com.example.reddit_clone.features.auth.login.presentationLayer.screens.Login
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Chat
 import com.example.reddit_clone.features.explore.presentationLayer.screens.Explore
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Notification
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Uploads
-import com.example.reddit_clone.features.homepage.domainLayer.viewModels.HomePageViewModel
+import com.example.reddit_clone.features.homepage.presentationLayer.viewModels.HomePageViewModel
 import com.example.reddit_clone.features.homepage.presentationLayer.screens.HomeScreen
 import com.example.reddit_clone.features.homepage.presentationLayer.utils.AppBar
 import com.example.reddit_clone.ui.theme.Reddit_CloneTheme
@@ -44,10 +46,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val homeScreenViewModel = HomePageViewModel()
+
         setContent {
             Reddit_CloneTheme {
-               MainScreen(homeScreenViewModel)
+                if(loggedIn)
+               MainScreen()
+                else LogInNavigation()
             }
         }
     }
@@ -59,18 +63,22 @@ enum class Screens{
     Explore,
     Chat,
     Upload,
-    Notification
+    Notification,
+    Login,
+    Profile,
+    Settings,
+
 }
 
 @Composable
-fun MainScreen(homeScreenViewModel: HomePageViewModel) {
+fun MainScreen() {
+    val  homeScreenViewModel = HomePageViewModel()
     val navController = rememberNavController()
     val selectedIndex = remember {
         mutableStateOf(Screens.Home.toString())
     }
-
     Scaffold(
-        topBar = { AppBar() },
+        topBar = { AppBar(navController) },
         bottomBar = {
             NavigationBar {
                buttomNavBarItems.forEachIndexed { _, buttomNavBarItem ->
@@ -100,7 +108,9 @@ fun MainScreen(homeScreenViewModel: HomePageViewModel) {
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
 
-        Box(modifier = Modifier.fillMaxSize().padding(innerPadding)){
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)){
 
 
             NavHost(
@@ -113,6 +123,7 @@ fun MainScreen(homeScreenViewModel: HomePageViewModel) {
                 composable(Screens.Upload.toString()) { Uploads() }
                 composable(Screens.Chat.toString()) { Chat() }
                 composable(Screens.Notification.toString()) { Notification() }
+                composable(Screens.Login.toString()) { Login(navController) }
             }
 
 
@@ -122,6 +133,7 @@ fun MainScreen(homeScreenViewModel: HomePageViewModel) {
 }
 
 
+val loggedIn = false
 
 data class ButtomNavBarItem(
     val label:String,

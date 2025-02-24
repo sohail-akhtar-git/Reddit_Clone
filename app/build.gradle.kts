@@ -1,4 +1,3 @@
-@file:Suppress("UNUSED_EXPRESSION")
 
 plugins {
     alias(libs.plugins.android.application)
@@ -69,10 +68,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Material Icons
     implementation(libs.androidx.material.icons.extended)
+    // Coil for image
     implementation(libs.coil.compose)
 
-
+    // Retrofit and gson
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 }
