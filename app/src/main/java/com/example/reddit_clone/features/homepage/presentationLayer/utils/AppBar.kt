@@ -23,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.reddit_clone.Screens
+import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
 
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun AppBar(navController: NavHostController) {
+fun AppBar(navController: NavHostController, authViewModel: AuthViewModel) {
     val query = remember{ mutableStateOf("")}
     val isActive = remember {
         mutableStateOf(false)
@@ -47,7 +48,7 @@ fun AppBar(navController: NavHostController) {
         },
         navigationIcon = {
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = { authViewModel.logOut()}
             )
             {
                 AsyncImage(

@@ -1,13 +1,16 @@
 package com.example.reddit_clone.features.homepage.domainLayer.repository
 
 import android.util.Log
-import com.example.reddit_clone.features.homepage.dataLayer.remote.api.RetroFitInstance
+import com.example.reddit_clone.features.homepage.dataLayer.remote.api.PostApi
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
-class ApiRepository {
-    private val postApi = RetroFitInstance.postApi
+class ApiRepository @Inject constructor(
+    private val postApi: PostApi
+) {
+
 
     private  val _postData = MutableStateFlow<List<Post>>(emptyList())
 

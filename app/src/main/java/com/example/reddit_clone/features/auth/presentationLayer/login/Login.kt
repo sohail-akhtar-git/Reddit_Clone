@@ -1,4 +1,4 @@
-package com.example.reddit_clone.features.auth.login.presentationLayer.screens
+package com.example.reddit_clone.features.auth.presentationLayer.login
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -27,22 +27,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.reddit_clone.features.auth.login.presentationLayer.LogInScreens
+import com.example.reddit_clone.features.auth.presentationLayer.LogInScreens
+import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
 
-fun Login(navController: NavHostController) {
-
-
-
+fun Login(navController: NavHostController, authViewModel: AuthViewModel) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -103,7 +100,8 @@ fun Login(navController: NavHostController) {
                         .fillMaxWidth()
                     ,
                     onClick = {
-                        navController.navigate(LogInScreens.MainScreen.toString()
+                        navController.navigate(
+                            LogInScreens.MainScreen.toString()
                         )
                               },
                 )
@@ -122,7 +120,9 @@ fun Login(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                     ,
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        navController.navigate(LogInScreens.LoginWithUserName.toString())
+                    },
                 )
                 {
                     Icon(imageVector = Icons.Default.Person, contentDescription =null )
@@ -181,7 +181,7 @@ fun Login(navController: NavHostController) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = "Don't have account? ")
-                    Button(onClick = { /*TODO*/ }) {
+                    Button(onClick = { navController.navigate(LogInScreens.SignUp.toString()) }) {
                         Text(text = "SignUp")
                     }
                 }

@@ -4,14 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
 import com.example.reddit_clone.features.homepage.domainLayer.repository.ApiRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.math.truncate
+import javax.inject.Inject
 
 
-class HomePageViewModel : ViewModel() {
-
-    private val apiRepo = ApiRepository()
+@HiltViewModel
+class HomePageViewModel @Inject constructor(
+    private val apiRepo: ApiRepository
+) : ViewModel()
+{
 
     init {
         getPostData()
@@ -20,9 +23,9 @@ class HomePageViewModel : ViewModel() {
     val  postData :StateFlow<List<Post>>
     get() = apiRepo.postData
 
-    var _isLoding = true
+    private var _isLoding = true
 
-    fun getPostData(){
+    private fun getPostData(){
         _isLoding = true
         viewModelScope.launch {
             apiRepo.getData()
