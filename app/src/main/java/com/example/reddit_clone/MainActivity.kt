@@ -25,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,7 +50,6 @@ import com.example.reddit_clone.features.explore.presentationLayer.screens.utils
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Uploads
 import com.example.reddit_clone.features.homepage.presentationLayer.viewModels.HomePageViewModel
 import com.example.reddit_clone.features.homepage.presentationLayer.screens.HomeScreen
-import com.example.reddit_clone.features.homepage.presentationLayer.utils.AppBar
 import com.example.reddit_clone.ui.theme.Reddit_CloneTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -111,7 +109,6 @@ fun MainScreen(authViewModel: AuthViewModel) {
         mutableStateOf(Screens.Home.toString())
     }
     Scaffold(
-        topBar = { AppBar(navController,authViewModel) },
         bottomBar = {
             NavigationBar {
                buttomNavBarItems.forEachIndexed { _, buttomNavBarItem ->
@@ -143,7 +140,7 @@ fun MainScreen(authViewModel: AuthViewModel) {
 
         Box(modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)){
+        ){
 
 
             NavHost(
@@ -151,7 +148,7 @@ fun MainScreen(authViewModel: AuthViewModel) {
                 startDestination = Screens.Home.toString(),
             ) {
 
-                composable(Screens.Home.toString()) { HomeScreen(homeScreenViewModel) }
+                composable(Screens.Home.toString()) { HomeScreen(authViewModel,homeScreenViewModel) }
                 composable(Screens.Explore.toString()) { Explore() }
                 composable(Screens.Upload.toString()) { Uploads() }
                 composable(Screens.Chat.toString()) { Chat() }
