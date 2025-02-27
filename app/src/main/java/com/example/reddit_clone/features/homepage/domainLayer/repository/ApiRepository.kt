@@ -1,6 +1,9 @@
 package com.example.reddit_clone.features.homepage.domainLayer.repository
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.reddit_clone.features.homepage.dataLayer.remote.api.PostApi
 import com.example.reddit_clone.features.homepage.domainLayer.dataModels.Post
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +17,7 @@ class ApiRepository @Inject constructor(
 
     private  val _postData = MutableStateFlow<List<Post>>(emptyList())
 
-    private var data= emptyList<Post>()
+
 
     val postData: StateFlow<List<Post>>
         get() = _postData
@@ -22,9 +25,12 @@ class ApiRepository @Inject constructor(
 
     suspend fun getData() {
         val response = postApi.getInitialData()
-        if (response.isSuccessful && response.body() != null) {
-            _postData.emit(response.body()!!)
-            data = _postData.value
+        val data = response.body()
+        if (response.isSuccessful) {
+            data?.let {
+                _postData.value =  it
+            }
+
             Log.d("Sameer","data aa gya hai")
         } else {
             //
@@ -33,13 +39,13 @@ class ApiRepository @Inject constructor(
     }
 
     suspend fun likePost(inde:Int) {
-        data[inde].likeCount += 1
-        _postData.emit(data)
     }
 
     suspend fun disLikePost(inde: Int){
-        _postData.value[inde].likeCount -=1
-        _postData.emit(_postData.value)
+
+        _postData.value?.let {
+            it[inde].likeCount-=1
+        }
 
     }
 }

@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ChatBubble
@@ -41,8 +40,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.reddit_clone.features.auth.dataModels.AuthState
+import com.example.reddit_clone.features.auth.presentationLayer.AuthMainScreen
 import com.example.reddit_clone.features.auth.presentationLayer.LogInNavigation
-import com.example.reddit_clone.features.auth.presentationLayer.login.Login
 import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
 import com.example.reddit_clone.features.explore.presentationLayer.screens.utils.Chat
 import com.example.reddit_clone.features.explore.presentationLayer.screens.Explore
@@ -61,7 +60,6 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("StateFlowValueCalledInComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
         setContent {
             val authViewModel = viewModel<AuthViewModel>()
@@ -80,13 +78,9 @@ class MainActivity : ComponentActivity() {
                         LogInNavigation(authViewModel = authViewModel)
                     }
                 }
-
             }
         }
     }
-
-
-
 }
 
 
@@ -101,6 +95,7 @@ enum class Screens{
     Settings,
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(authViewModel: AuthViewModel) {
     val  homeScreenViewModel = hiltViewModel<HomePageViewModel>()
@@ -120,7 +115,8 @@ fun MainScreen(authViewModel: AuthViewModel) {
                            selectedIndex.value = buttomNavBarItem.destination
                            navController.navigate(buttomNavBarItem.destination)
                                  },
-                       icon = {
+                       icon =
+                       {
                            Icon(
                                tint = Color(0xFF9875E2),
                                imageVector = if(isSelected){
@@ -128,37 +124,30 @@ fun MainScreen(authViewModel: AuthViewModel) {
                                }else{
                                    buttomNavBarItem.unSelectedIcon
                                } ,
-                               contentDescription =null )
+                               contentDescription =null
+                           )
                        },
                    )
                }
-
             }
         },
         modifier = Modifier.fillMaxSize()
-    ) { innerPadding ->
-
+    ) {
         Box(modifier = Modifier
             .fillMaxSize()
         ){
-
-
             NavHost(
                 navController = navController,
                 startDestination = Screens.Home.toString(),
             ) {
-
                 composable(Screens.Home.toString()) { HomeScreen(authViewModel,homeScreenViewModel) }
                 composable(Screens.Explore.toString()) { Explore() }
                 composable(Screens.Upload.toString()) { Uploads() }
                 composable(Screens.Chat.toString()) { Chat() }
                 composable(Screens.Notification.toString()) { Notification() }
-                composable(Screens.Login.toString()) { Login(navController, authViewModel) }
+                composable(Screens.Login.toString()) { AuthMainScreen(navController, authViewModel) }
             }
-
-
         }
-
     }
 }
 
@@ -218,7 +207,6 @@ val buttomNavBarItems = arrayOf(
         destination = Screens.Notification.toString()
     ),
 )
-
 
 
 

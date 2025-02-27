@@ -7,7 +7,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.reddit_clone.MainScreen
 import com.example.reddit_clone.Screens
 import com.example.reddit_clone.features.auth.presentationLayer.login.screens.LogInWithNumber
-import com.example.reddit_clone.features.auth.presentationLayer.login.Login
 import com.example.reddit_clone.features.auth.presentationLayer.login.screens.LogInWithUserName
 import com.example.reddit_clone.features.auth.presentationLayer.signup.SignUp
 import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
@@ -17,7 +16,7 @@ import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
 fun LogInNavigation(authViewModel: AuthViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screens.Login.toString()) {
-        composable(Screens.Login.toString()) { Login(navController,authViewModel) }
+        composable(Screens.Login.toString()) { AuthMainScreen(navController,authViewModel) }
         composable(LogInScreens.LogInWithNumber.toString()) { LogInWithNumber(navController) }
         composable(LogInScreens.LoginWithUserName.toString()) { LogInWithUserName(navController,authViewModel) }
         composable(LogInScreens.MainScreen.toString()) { MainScreen(authViewModel) }

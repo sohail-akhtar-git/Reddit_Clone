@@ -1,6 +1,6 @@
-package com.example.reddit_clone.features.auth.presentationLayer.login
+package com.example.reddit_clone.features.auth.presentationLayer
 
-import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,6 @@ import androidx.compose.material.icons.filled.MobileFriendly
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -30,22 +29,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.reddit_clone.features.auth.presentationLayer.LogInScreens
+import com.example.reddit_clone.features.auth.dataModels.AuthState
 import com.example.reddit_clone.features.auth.viewModel.AuthViewModel
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
-
-fun Login(navController: NavHostController, authViewModel: AuthViewModel) {
-
+fun AuthMainScreen(navController: NavHostController, authViewModel: AuthViewModel) {
 
 
+
+    val context = LocalContext.current
 
     var isSignUp  by remember {
         mutableStateOf(false)
@@ -59,8 +58,6 @@ fun Login(navController: NavHostController, authViewModel: AuthViewModel) {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
-
             Box(
                 modifier = Modifier
                     .weight(3f)
@@ -128,9 +125,23 @@ fun Login(navController: NavHostController, authViewModel: AuthViewModel) {
                             .fillMaxWidth()
                         ,
                         onClick = {
-                            navController.navigate(
-                                LogInScreens.MainScreen.toString()
-                            )
+
+                            authViewModel.logInWithGoogle(context = context)
+
+                            if(authViewModel.authState.value is AuthState.Authenticated){
+                                navController.navigate(LogInScreens.MainScreen.toString())
+                            }
+
+                            if(authViewModel.authState.value is AuthState.Error){
+
+                                Toast.makeText(
+                                    context,
+                                    (authViewModel.authState.value as AuthState.Error).message,
+                                    Toast.LENGTH_SHORT
+
+                                ).show()
+                            }
+
                         },
                     )
                     {
